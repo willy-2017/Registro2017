@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <script type="text/javascript">
+      function showContent() {
+        element = document.getElementById("content");
+        check = document.getElementById("check");
+        if (check.checked) {
+            element.style.display='block';
+        }
+        else {
+            element.style.display='none';
+        }
+      }
+       </script>
+    </h:head>
+    <h:body>
+         <h1 align="center" >Registro de usuarios</h1>
+         <h:form>   
+             <p:accordionPanel activeIndex="-1">
+                 <p:tab title="Información" >
+                     <p:outputLabel>Le deseamos que tenga una buena experiencia con el registro de usuarios.</p:outputLabel><br/>
+                     <p:outputLabel>Nota:estamos mejorandolo</p:outputLabel>
+                 </p:tab>    
+             <p:tab title="Agregar Usuario" >    
+         <h:panelGrid columns="2">
+                    <h:outputLabel value="IdUsuario:"/>
+                    <p:inputText value="#{usuariosBean.usuarios.idUsuario}"/>
+                    <h:outputLabel value="Usuario:"/>
+                    <p:inputText value="#{usuariosBean.usuarios.usuario}"/>
+                    <p:commandButton  value="Agregar" actionListener="#{usuariosBean.registrar()}" onclick="document.location.reload();"/>
+         </h:panelGrid>     
+           
+         </p:tab> 
+         </p:accordionPanel>
+             <br/><br/><br/>
+             
+             
+             
+             <input type="checkbox" name="check" id="check" value="1" onchange="javascript:showContent()" />
+             <b>Mostrar Tabla</b>
+             
+             <div id="content" style="display: none;">
+                  <p:dataTable value="#{usuariosBean.usuariosEJB.findAll()}" var="user">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Id"/>     
+                            </f:facet>
+                            <h:outputLabel value="#{user.idUsuario}"/>  
+                        </p:column>
+                         <p:column>
+                              <f:facet name="header">
+                                <h:outputLabel value="Usuario"/>     
+                            </f:facet>
+                             <h:outputLabel value="#{user.usuario}"/>  
+                        </p:column>
+                    </p:dataTable>   
+              </div>
+               
+                 
+        </h:form>       
+        
+    </h:body>
+</html>
+
